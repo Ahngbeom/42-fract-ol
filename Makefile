@@ -6,7 +6,7 @@
 #    By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/03 12:52:27 by bahn              #+#    #+#              #
-#    Updated: 2021/09/03 13:14:17 by bahn             ###   ########.fr        #
+#    Updated: 2021/09/03 14:45:57 by bahn             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC				= gcc
 CFLAGS_MAC		= -lmlx -lm -framework OpenGL -framework AppKit
 CFLAGS_LINUX	= -Lminilibx-linux/ -lmlx -lX11 -lXext -lm -lbsd
 
-INCFLAGS		= -I./minilibx-linux
+INCFLAGS		= -I./includes -I./minilibx-linux
 
 SRCS_PATH		= ./
 SRCS_NAME		= main.c
@@ -28,7 +28,7 @@ all 			: $(NAME)
 .c.o			:
 				$(CC) $(INCFLAGS) -c $< $(CFLAGS_LINUX) -o $@
 
-$(NAME) 		: $(SRCS)
+$(NAME) 		: $(OBJS)
 				$(CC) $(INCFLAGS) $^ $(CFLAGS_LINUX) -o $@
 
 clean			: 

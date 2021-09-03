@@ -31,6 +31,7 @@
 # include <X11/extensions/XShm.h>
 # include <X11/XKBlib.h>
 /* #include	<X11/xpm.h> */
+# include <X11/X.h>
 
 
 # define MLX_TYPE_SHM_PIXMAP 3
