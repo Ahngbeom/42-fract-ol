@@ -6,7 +6,7 @@
 #    By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/03 12:52:27 by bahn              #+#    #+#              #
-#    Updated: 2021/09/03 14:45:57 by bahn             ###   ########.fr        #
+#    Updated: 2021/09/07 16:22:19 by bahn             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,9 @@ CFLAGS_LINUX	= -Lminilibx-linux/ -lmlx -lX11 -lXext -lm -lbsd
 
 INCFLAGS		= -I./includes -I./minilibx-linux
 
-SRCS_PATH		= ./
-SRCS_NAME		= main.c
+SRCS_PATH		= ./srcs/
+SRCS_NAME		= main.c \
+					mouse.c keyboard.c color.c
 SRCS 			= $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 OBJS			= $(SRCS:.c=.o)
 
