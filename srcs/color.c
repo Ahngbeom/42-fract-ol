@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 16:22:00 by bahn              #+#    #+#             */
-/*   Updated: 2021/09/07 16:22:12 by bahn             ###   ########.fr       */
+/*   Updated: 2021/09/08 15:52:02 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,20 @@ int	color_map(t_vars *vars, int w, int h)
                         printf("%d x %d Color : %d\n", x, y, color);
                 }
         }
+}
+
+int     color_set(int iter)
+{
+	double	r;
+	double	g;
+	double	b;
+	int		color;
+
+	r = sin(0.3 * (double)iter);
+	g = sin(0.3 * (double)iter + 3) * 127 + 128;
+	b = sin(0.3 * (double)iter + 3) * 127 + 128;
+	color = ((int)(255.999 * r) << 16) + ((int)(255.999 * g) << 8) + ((int)(255.999 * b));
+	return (color);
 }
 
 int	set_bgcolor(t_vars *vars, int w, int h, int color)

@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 14:55:11 by bahn              #+#    #+#             */
-/*   Updated: 2021/09/08 00:38:06 by bahn             ###   ########.fr       */
+/*   Updated: 2021/09/08 21:00:59 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int     mandelbrot(int count_w, int count_h, int iter)
 	double x_new;
 	double y;
 
-	c_re = ((count_w - WIDTH / 2) * 3.0 / WIDTH) - 0.5;
+	c_re = (count_w - (WIDTH / 2)) * 3.0 / WIDTH - 0.5;
 	c_im = ((HEIGHT / 2) - count_h) * 2.0 / HEIGHT;
 	x = 0;
 	y = 0;
@@ -47,38 +47,45 @@ void    mandelbrot_init(t_vars *vars)
         int     iter;
         int     w;
         int     h;
+        int     x;
+        int     y;
         int     color;
         int     power;
         int     count;
 
-        h = 0;
-        while (h++ <= HEIGHT)
+        h = vars->zoom->min_h;
+        y = -1;
+        while (++y <= HEIGHT)
         {
-                w = 0;
-                while (w++ <= WIDTH)
+                w = vars->zoom->min_w;
+                x = -1;
+                while (++x <= WIDTH)
                 {
                         color = 0xFFFFFFF;
-                        iter = mandelbrot(w, h, 0);
+                        iter = mandelbrot(x, y, 0);
                         if (iter < ITER_MAX)
                         {
-                                count = ITER_MAX / 16;
-                                while (iter)
-                                {
-                                        power = 0;
-                                        while (power < 32)
-                                        {
-                                                color = color - (int)pow(2, power);
-                                                power += 4;
-                                        }
-                                        iter /= count;
-                                }
-                                my_mlx_pixel_put(vars->img, w, h, color);
+                                // count = ITER_MAX / 16;
+                                // while (iter)
+                                // {
+                                //         power = 0;
+                                //         while (power < 32)
+                                //         {
+                                //                 color = color - (int)pow(2, power);
+                                //                 power += 4;
+                                //         }
+                                //         iter /= count;
+                                // }
+                                my_mlx_pixel_put(vars->img, x, y, color);
+                                // my_mlx_pixel_put(vars->img, w, h, color_set(iter));
                         }
                         else
                         {
-                                my_mlx_pixel_put(vars->img, w, h, 0x00000000);
+                                my_mlx_pixel_put(vars->img, x, y, 0x00000000);
                         }
+                        w = vars->zoom->width / WIDTH;
                 }
+                h = vars->zoom->height / HEIGHT;
         }
 }
 
@@ -86,16 +93,23 @@ int     main(void)
 {
         t_vars  vars;
         t_data  data;
+        t_zoom  zoom;
         int     i;
         int     j;
         int     k;
 
         vars.mlx = mlx_init();
-        vars.win = mlx_new_window(vars.mlx, WIDTH, HEIGHT, "bahn's MiniLibX!");
+        vars.win = mlx_new_window(vars.mlx, WIDTH, HEIGHT, "bahn's fract-ol!");
         vars.img = &data;
+        vars.zoom = &zoom;
         data.img = mlx_new_image(vars.mlx, WIDTH, HEIGHT);
         data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_length, &data.endian);
-        
+        zoom.max_w = 0;
+        zoom.min_w = 0;
+        zoom.max_h = 0;
+        zoom.min_h = 0;
+        zoom.width = 0;
+        zoom.height = 0;
         mlx_key_hook(vars.win, press_key, &vars);
         mlx_mouse_hook(vars.win, mouse_button, &vars);
         // mlx_hook(vars.win, MotionNotify, PointerMotionMask, mouse_pos, &vars);
