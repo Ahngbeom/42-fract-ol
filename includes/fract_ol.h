@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 14:33:36 by bahn              #+#    #+#             */
-/*   Updated: 2021/09/08 20:03:59 by bahn             ###   ########.fr       */
+/*   Updated: 2021/09/16 13:35:04 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,23 @@
 # include <stdio.h>
 # include <math.h>
 
-#define		WIDTH				1280
-#define		HEIGHT			720
-#define		ITER_MAX		100
-#define   ZOOM        1
-typedef struct s_vars t_vars;
-typedef struct s_data t_data;
+#define		WIDTH				800
+#define		HEIGHT			640
+#define		ITER_MAX		60
+#define   ZOOM        1.2
+
+typedef struct s_fractol t_fractol;
+typedef struct s_myimg t_myimg;
 typedef struct s_zoom t_zoom;
 
-struct	s_vars {
+struct s_fractol {
   void	*mlx;
 	void	*win;
-	t_data	*img;
+  t_myimg	*img;
   t_zoom  *zoom;
 };
 
-struct  s_data
+struct  s_myimg
 {
   void	*img;
   char	*addr;
@@ -45,23 +46,39 @@ struct  s_data
 
 struct s_zoom
 {
-  int max_w;
-  int min_w;
-  int max_h;
-  int min_h;
-  int width;
-  int height;
+  // double pixel;
+  
+  double mag;
+
+  double center_x;
+  double center_y;
+
+  // double w_l_x;
+  // double w_l_y;
+
+  double mouse_x;
+  double mouse_y;
+
+  double   min_x;
+  double   max_x;
+  double   min_y;
+  double   max_y;
+  double   dx;
+  double   dy;
+
 };
 
+void  my_mlx_pixel_put(t_myimg *img, int x, int y, int color);
 
-void  my_mlx_pixel_put(t_data *data, int x, int y, int color);
-
-int press_key(int key, t_vars *vars);
-int	mouse_button(int button, int x, int y, t_vars *vars);
-int	mouse_pos(int x ,int y, t_vars *vars);
+int press_key(int key, t_fractol *fractol);
+int	mouse_button(int button, int x, int y, t_fractol *fractol);
+int	mouse_pos(int x ,int y, t_fractol *fractol);
 int	create_trgb(int t, int r, int g, int b);
-int	color_map(t_vars *vars, int w, int h);
+int	color_map(t_fractol *fractol, int w, int h);
 int color_set(int iter);
-int	set_bgcolor(t_vars *vars, int w, int h, int color);
+int	set_bgcolor(t_fractol *fractol, int w, int h, int color);
+
+void    ft_fractol(t_fractol *fractol);
+int     mandelbrot(t_fractol *fractol, int count_w, int count_h, int iter);
 
 #endif

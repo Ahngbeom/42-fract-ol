@@ -6,13 +6,13 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 16:21:08 by bahn              #+#    #+#             */
-/*   Updated: 2021/09/07 16:21:18 by bahn             ###   ########.fr       */
+/*   Updated: 2021/09/14 13:41:12 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fract_ol.h"
 
-int	press_key(int key, t_vars *vars)
+int	press_key(int key, t_fractol *fractol)
 {
         printf("Key Press : %X\n", key);
 	if (key == 0xFF1B)

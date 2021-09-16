@@ -6,7 +6,7 @@
 #    By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/03 12:52:27 by bahn              #+#    #+#              #
-#    Updated: 2021/09/07 16:22:19 by bahn             ###   ########.fr        #
+#    Updated: 2021/09/15 15:37:30 by bahn             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME			= fractol
 
 CC				= gcc
 CFLAGS_MAC		= -lmlx -lm -framework OpenGL -framework AppKit
-CFLAGS_LINUX	= -Lminilibx-linux/ -lmlx -lX11 -lXext -lm -lbsd
+CFLAGS_LINUX	= -Lminilibx-linux/ -lmlx -lX11 -lXext -lm -lbsd -O3
 
 INCFLAGS		= -I./includes -I./minilibx-linux
 
