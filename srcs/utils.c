@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keyboard.c                                         :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/07 16:21:08 by bahn              #+#    #+#             */
-/*   Updated: 2021/09/16 16:37:26 by bahn             ###   ########.fr       */
+/*   Created: 2021/09/16 15:56:21 by bahn              #+#    #+#             */
+/*   Updated: 2021/09/16 16:02:20 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fract_ol.h"
 
-int	press_key(int key, t_fractol *fractol)
+int	ft_gcd(int a, int b)
 {
-        printf("Key Press : %#08X\n", key);
-	if (key == 0x00FF1B)
-                exit(0);
-        if (key == 0x000072)
-        {
-                fractol->zoom->mag = 0.5;
-                fractol->zoom->center_x = -0.5;
-                fractol->zoom->center_y = 0;
-                ft_fractol(fractol);
-        }
+	int	i;
+	int	j;
+	int gcd;
+
+	i = 1;
+	while (i <= a)
+	{
+		if (a % i == 0 && b % i == 0)
+			gcd = i;
+		i++;
+	}
+	return gcd;
 }

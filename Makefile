@@ -6,7 +6,7 @@
 #    By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/03 12:52:27 by bahn              #+#    #+#              #
-#    Updated: 2021/09/15 15:37:30 by bahn             ###   ########.fr        #
+#    Updated: 2021/09/16 16:02:12 by bahn             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ INCFLAGS		= -I./includes -I./minilibx-linux
 
 SRCS_PATH		= ./srcs/
 SRCS_NAME		= main.c \
-					mouse.c keyboard.c color.c
+					mouse.c keyboard.c color.c utils.c
 SRCS 			= $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 OBJS			= $(SRCS:.c=.o)
 

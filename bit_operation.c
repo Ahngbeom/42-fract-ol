@@ -1,22 +1,29 @@
 #include <stdio.h>
 #include <math.h>
 
-int	main(void)
+// gcc bit_operation.c -lm
+
+int	rgb_bitset(int color)
 {
-	int	bit = 0xFFFFFFFF;
+	int	bit = color;
 	int	power;
-	int	count = 16;
+	// int	count = 16;
 	
-	printf("%#010X\n", bit);
-	while (--count)
-	{
+	// while (--count)
+	// {
 		power = 0;
-		while (power < 32)
+		while (power < 24)
 		{
 			bit = bit - (int)pow(2, power);
 			power += 4;
 		}
-		printf("%#010X\n", bit);
-	}
-	return(0);
+	// }
+
+	return(bit);
+}
+
+int main(void)
+{
+	printf("%#08X\n", rgb_bitset(0xFFFFFF));
+	return (0);
 }

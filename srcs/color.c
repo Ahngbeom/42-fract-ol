@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 16:22:00 by bahn              #+#    #+#             */
-/*   Updated: 2021/09/14 19:52:12 by bahn             ###   ########.fr       */
+/*   Updated: 2021/09/16 21:13:26 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,22 @@ int	set_bgcolor(t_fractol *fractol, int w, int h, int color)
                         mlx_pixel_put(fractol->mlx, fractol->win, x, y, color);
                 }
         }
+}
+
+int	rgb_bitset(int brightness)
+{
+	int	bit = 0xFFFFFFFF;
+	int	power;
+	int	count = 16;
+	
+	while (--count >= brightness)
+	{
+		power = 0;
+		while (power < 32)
+		{
+			bit = bit - (int)pow(2, power);
+			power += 4;
+		}
+	}
+	return(bit);
 }
