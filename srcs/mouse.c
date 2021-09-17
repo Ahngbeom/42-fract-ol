@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 16:20:09 by bahn              #+#    #+#             */
-/*   Updated: 2021/09/16 22:02:56 by bahn             ###   ########.fr       */
+/*   Updated: 2021/09/17 16:09:29 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	mouse_button(int button, int x, int y, t_fractol *fractol)
         {
                 if (button == 4)
                 {
-                        fractol->zoom->mag += 3.0;
+                        fractol->zoom->mag += 10.0;
                         fractol->zoom->center_x += ((2.0 * (double)x / WIDTH) - 1.0) / fractol->zoom->mag;
                         fractol->zoom->center_y += (2.0 * (double)y - HEIGHT) / fractol->zoom->mag / WIDTH;
                 }
@@ -38,7 +38,7 @@ int	mouse_button(int button, int x, int y, t_fractol *fractol)
                         if (fractol->zoom->mag < 0.5 + 0.1)
                                 fractol->zoom->mag = 0.5;
                         else
-                                fractol->zoom->mag -= 3.0;
+                                fractol->zoom->mag -= 10.0;
                         fractol->zoom->center_x += ((2.0 * (double)x / WIDTH) - 1.0) / fractol->zoom->mag;
                         fractol->zoom->center_y += (2.0 * (double)y - HEIGHT) / fractol->zoom->mag / WIDTH;
                 }

@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 14:33:36 by bahn              #+#    #+#             */
-/*   Updated: 2021/09/16 21:12:53 by bahn             ###   ########.fr       */
+/*   Updated: 2021/09/17 01:18:42 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 #define		WIDTH				1280
 #define		HEIGHT			720
-#define		ITER_MAX		80
+#define		ITER_MAX		100
 #define   ZOOM        1.2
 
 typedef struct s_fractol t_fractol;

@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 14:55:11 by bahn              #+#    #+#             */
-/*   Updated: 2021/09/16 22:48:35 by bahn             ###   ########.fr       */
+/*   Updated: 2021/09/17 16:26:10 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ int     julia(t_fractol *fractol, int count_w, int count_h, int iter)
 	double y;
 	double temp;
 
-        c_re = 0;
-        c_im = 0;
+        c_re = fractol->zoom->min_x + count_w * fractol->zoom->dx;
+        c_im = fractol->zoom->min_y + count_h * fractol->zoom->dy;
         // printf("c_re : %lf, c_im :%lf\n", c_re, c_im);
         
-	x = fractol->zoom->min_x + count_w * fractol->zoom->dx;
-	y = fractol->zoom->min_y + count_h * fractol->zoom->dy;
+	x = 0;
+	y = 0;
 	while ((pow(x, 2.0) + pow(y, 2.0) <= 4) && (iter < ITER_MAX))
 	{
 		temp = pow(x, 2.0) - pow(y, 2.0) + c_re;
@@ -101,8 +101,9 @@ void    ft_fractol(t_fractol *fractol)
                         iter = julia(fractol, w, h, 0);
                         if (iter < ITER_MAX)
                         {
-                                color = rgb_bitset(iter / 16);
-                                my_mlx_pixel_put(fractol->img, w, h, color);
+                                // color = rgb_bitset(iter / 16);
+                                // my_mlx_pixel_put(fractol->img, w, h, color);
+                                my_mlx_pixel_put(fractol->img, w, h, color_set(iter));
                         }
                         else
                                 my_mlx_pixel_put(fractol->img, w, h, 0x00000000);
@@ -120,15 +121,16 @@ int     main(void)
         t_zoom          zoom;
         
         fractol.mlx = mlx_init();
+        fractol.win = mlx_new_window(fractol.mlx, WIDTH, HEIGHT, "bahn's fract-ol");
         // fractol.win = mlx_new_window(fractol.mlx, WIDTH, HEIGHT, "bahn's fract-ol - [Mandelbrot]");
-        fractol.win = mlx_new_window(fractol.mlx, WIDTH, HEIGHT, "bahn's fract-ol - [Julia]");
+        // fractol.win = mlx_new_window(fractol.mlx, WIDTH, HEIGHT, "bahn's fract-ol - [Julia]");
 
         img.img = mlx_new_image(fractol.mlx, WIDTH, HEIGHT);
         img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
         fractol.img = &img;
 
         zoom.mag = 0.5;
-        zoom.center_x = -0.5;
+        zoom.center_x = 0.0;
         zoom.center_y = 0.0;
         fractol.zoom = &zoom;
 

@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 16:22:00 by bahn              #+#    #+#             */
-/*   Updated: 2021/09/16 21:13:26 by bahn             ###   ########.fr       */
+/*   Updated: 2021/09/17 16:20:14 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,12 @@ int     color_set(int iter)
 	double	b;
 	int		color;
 
-	r = sin(0.3 * (double)iter);
-	g = sin(0.3 * (double)iter + 3) * 127 + 128;
-	b = sin(0.3 * (double)iter + 3) * 127 + 128;
+	// r = sin(0.3 * (double)iter);
+	// g = sin(0.3 * (double)iter + 3) * 127 + 128;
+	// b = sin(0.3 * (double)iter + 3) * 127 + 128;
+        r = sin(0.3 * (double)iter);
+	g = sin(0.3 * (double)iter);
+	b = sin(0.3 * (double)iter);
 	color = ((int)(255.999 * r) << 16) + ((int)(255.999 * g) << 8) + ((int)(255.999 * b));
 	return (color);
 }
