@@ -6,57 +6,68 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 16:20:09 by bahn              #+#    #+#             */
-/*   Updated: 2021/09/17 16:09:29 by bahn             ###   ########.fr       */
+/*   Updated: 2021/09/27 23:13:56 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fract_ol.h"
 
-int	mouse_button(int button, int x, int y, t_fractol *fractol)
+int	mouse_hook(int key, int x, int y, t_fractol *fractol)
 {
         static  int     num = 0;
         int     color;
 
-        // if (button == 1)
-        // {
-        //         // printf("Mouse Click(%d) : %dx%d.\n", button, x, y);
-
-        //         fractol->zoom->center_x = ((2.0 * (double)x / (double)WIDTH) - 1.0) / fractol->zoom->mag;
-        //         fractol->zoom->center_y = (2.0 * (double)y - (double)HEIGHT) / fractol->zoom->mag / (double)WIDTH;
-        //         ft_fractol(fractol);
-        // }       
-        if (button == 4 || button == 5)
+        if (key == 4 || key == 5)
         {
-                if (button == 4)
+                fractol->mouse.x = (double)x / fractol->pixel - fractol->w_l.x / 2;
+                fractol->mouse.y = (double)y / fractol->pixel - fractol->w_l.y / 2;
+                if (key == 4)
                 {
-                        fractol->zoom->mag += 10.0;
-                        fractol->zoom->center_x += ((2.0 * (double)x / WIDTH) - 1.0) / fractol->zoom->mag;
-                        fractol->zoom->center_y += (2.0 * (double)y - HEIGHT) / fractol->zoom->mag / WIDTH;
+                        fractol->center.x += fractol->mouse.x * (1 - 1 / ZOOM);
+                        fractol->center.y += fractol->mouse.y * (1 - 1 / ZOOM);
+                        fractol->pixel *= ZOOM;
+                        fractol->w_l.x /= ZOOM;
+                        fractol->w_l.y /= ZOOM;
                 }
                 else
                 {
-                        if (fractol->zoom->mag < 0.5 + 0.1)
-                                fractol->zoom->mag = 0.5;
-                        else
-                                fractol->zoom->mag -= 10.0;
-                        fractol->zoom->center_x += ((2.0 * (double)x / WIDTH) - 1.0) / fractol->zoom->mag;
-                        fractol->zoom->center_y += (2.0 * (double)y - HEIGHT) / fractol->zoom->mag / WIDTH;
+                        fractol->center.x += -fractol->mouse.x * (ZOOM - 1);
+                        fractol->center.y += -fractol->mouse.y * (ZOOM - 1);
+                        fractol->pixel /= ZOOM;
+                        fractol->w_l.x *= ZOOM;
+                        fractol->w_l.y *= ZOOM;
                 }
-                
-                ft_fractol(fractol);
-                mlx_put_image_to_window(fractol->mlx, fractol->win, fractol->img->img, 0, 0);
-                
+                printf("Pixel : %lf, w_l (x, y) : (%lf, %lf)\n", fractol->pixel, fractol->w_l.x, fractol->w_l.y);
+                draw_fractol(fractol);
+                mlx_put_image_to_window(fractol->mlx, fractol->win, fractol->img.img, 0, 0);
         }
-        // printf("Center (x, y) : (%lf, %lf)\n", fractol->zoom->center_x, fractol->zoom->center_y);
-
         return (0);
 }
 
-int	mouse_pos(int x ,int y, t_fractol *fractol)
+int	mouse_motion_hook(int x ,int y, t_fractol *fractol)
 {
         // printf("Mouse moving %d x %d.\n", x, y);
-        fractol->zoom->center_x = ((2.0 * (double)x / (double)WIDTH) - 1.0) / fractol->zoom->mag;
-        fractol->zoom->center_y = (2.0 * (double)y - (double)HEIGHT) / fractol->zoom->mag / (double)WIDTH;
-        // printf("Center (x, y) : (%lf, %lf)\n", fractol->zoom->center_x, fractol->zoom->center_y);
-        ft_fractol(fractol);
+        // 사분면?
+        if (fractol->type == 1) {
+                if (x > WIDTH / 2 && y > HEIGHT) {
+                        fractol->julia_const.x = -2 + ((double)x / (WIDTH / 4));
+                        fractol->julia_const.y = -2 + ((double)x / (HEIGHT / 4));
+                } 
+                else if (x < WIDTH / 2 && y > HEIGHT) {
+                        fractol->julia_const.x = -2 + ((double)x / (WIDTH / 4));
+                        fractol->julia_const.y = -2 + ((double)y / (HEIGHT / 4));
+                }
+                else if (x < WIDTH / 2 && y > HEIGHT) {
+                        fractol->julia_const.x = -2 + ((double)x / (WIDTH / 4));
+                        fractol->julia_const.y = -2 + ((double)y / (HEIGHT / 4));
+                }
+                else {
+                        fractol->julia_const.x = -2 + ((double)x / (WIDTH / 4));
+                        fractol->julia_const.y = -2 + ((double)y / (HEIGHT / 4));
+                }
+                // printf("Julia const : (%lf, %lf)\n", fractol->julia_const.x, fractol->julia_const.y);
+                draw_fractol(fractol);
+                mlx_put_image_to_window(fractol->mlx, fractol->win, fractol->img.img, 0, 0);
+        }
+        return (0);
 }
