@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 14:55:11 by bahn              #+#    #+#             */
-/*   Updated: 2021/09/28 01:57:43 by bahn             ###   ########.fr       */
+/*   Updated: 2021/09/28 03:23:21 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int     fractol_init(t_fractol *fractol, char **argv) {
                 fractol->type = 1;
         else {
                 ft_putendl_fd("Fractol Type Error", 1);
-                return (1);
+                exit(1);
         }
         fractol->img.img = mlx_new_image(fractol->mlx, WIDTH, HEIGHT);
         fractol->img.addr = mlx_get_data_addr(fractol->img.img, &fractol->img.bits_per_pixel, \
@@ -67,16 +67,17 @@ int     fractol_init(t_fractol *fractol, char **argv) {
         if (fractol->mlx == NULL || fractol->win == NULL || fractol->img.img == NULL || fractol->img.addr == NULL)
         {
                 ft_putendl_fd("mlx error", 1);
-		return (1);
+		exit(1);
         }
         
-        fractol->center.x = 0;
+        fractol->center.x = -0.5;
         fractol->center.y = 0;
-        //  
-        fractol->pixel = WIDTH <= HEIGHT ? WIDTH / 4 : HEIGHT / 4;
+        /////////////////////////////////////////////////////////////////////
+        // fractol->pixel = WIDTH <= HEIGHT ? WIDTH / 4 : HEIGHT / 4;
+        fractol->pixel = WIDTH / 4;
         fractol->w_l.x = WIDTH / fractol->pixel;
         fractol->w_l.y = HEIGHT / fractol->pixel;
-        //
+        /////////////////////////////////////////////////////////////////////
         fractol->julia_const.x = -0.1875;
         fractol->julia_const.y = -1.0944;
         return (0);
@@ -87,10 +88,12 @@ int     main(int argc, char **argv)
         t_fractol  fractol;
         
         if (argc != 2)
+        {
+                ft_putendl_fd("Please enter the Fractol Type", 1);
+                ft_putendl_fd(">>> [Mandelbrot] [Julia]", 1);
                 exit(1);
-
-        if (fractol_init(&fractol, argv))
-                exit(1);
+        } else
+                fractol_init(&fractol, argv);
         
         mlx_key_hook(fractol.win, press_key, &fractol);
         mlx_mouse_hook(fractol.win, mouse_hook, &fractol);
