@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 14:33:36 by bahn              #+#    #+#             */
-/*   Updated: 2021/09/27 20:32:41 by bahn             ###   ########.fr       */
+/*   Updated: 2021/09/28 20:25:05 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FRACT_OL_H
 
 # include "mlx.h"
-# include "mlx_int.h"
+// # include "mlx_int.h"
 # include "libft.h"
 # include <stdlib.h>
 # include <unistd.h>
@@ -22,7 +22,7 @@
 
 # define  WIDTH     1280
 # define  HEIGHT    720
-# define  ITER_MAX  255
+# define  ITER_MAX  70
 # define  ZOOM      1.2
 # define  PI        3.14159265359
 
@@ -30,7 +30,6 @@
 # define  UP        0X00FF52
 # define  RIGHT     0X00FF53
 # define  DOWN      0X00FF54
-
 
 typedef struct s_point t_point;
 typedef struct s_myimg t_myimg;
@@ -60,7 +59,8 @@ struct s_fractol {
   double  pixel;
   t_myimg	img;
   t_point center;
-  t_point w_l;
+  // t_point pixel;
+  t_point complex;
   t_point mouse;
   t_point julia_const;
 };

@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 16:21:08 by bahn              #+#    #+#             */
-/*   Updated: 2021/09/27 17:15:12 by bahn             ###   ########.fr       */
+/*   Updated: 2021/09/28 15:37:05 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@ int	press_key(int key, t_fractol *fractol)
                 exit(0);
         else if (key == 0x000072) // R key == Reset
         {
-                fractol->center.x = 0;
+                fractol->center.x = -0.5;
                 fractol->center.y = 0;
-                fractol->pixel = WIDTH <= HEIGHT ? WIDTH / 4 : HEIGHT / 4;
-                fractol->w_l.x = WIDTH / fractol->pixel;
-                fractol->w_l.y = HEIGHT / fractol->pixel;
+                // fractol->pixel = WIDTH <= HEIGHT ? WIDTH / 4 : HEIGHT / 4;
+                fractol->pixel = WIDTH / 4;
+                // fractol->pixel.y = HEIGHT / 2;
+                fractol->complex.x = WIDTH / fractol->pixel;
+                fractol->complex.y = HEIGHT / fractol->pixel;
                 fractol->julia_const.x = -0.1875;
                 fractol->julia_const.y = -1.0944;
         }
