@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 14:33:36 by bahn              #+#    #+#             */
-/*   Updated: 2021/09/30 21:01:07 by bahn             ###   ########.fr       */
+/*   Updated: 2021/10/04 23:33:50 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define  WIDTH       1280
 # define  HEIGHT      720
-# define  ITER_MAX    70
+# define  ITER_MAX    255
 # define  ZOOM        1.2
 # define  PI          3.14159265359
 
@@ -43,26 +43,35 @@
 # define  NUMPAD_2    0X0000FF99
 # define  NUMPAD_5    0X0000FF9D
 
-typedef struct s_non_diverges t_non_diverges;
+typedef struct s_rgb t_rgb;
 typedef struct s_color t_color;
 typedef struct s_point t_point;
 typedef struct s_myimg t_myimg;
 typedef struct s_fractol t_fractol;
+typedef struct s_lst_rgb t_lst_rgb;
 
-struct s_non_diverges
+struct s_lst_rgb
 {
-  int max_iter;
-  double x;
-  double y;
+  int value;
+  t_lst_rgb *prev;
+  t_lst_rgb *next;
 };
 
+struct s_rgb
+{
+  int r;
+  int g;
+  int b;
+};
 
 struct s_color
 {
-  double *rgb_ptr;
-  double r;
-  double g;
-  double b;
+  int *rgb_ptr;
+
+  t_lst_rgb *rgb;
+
+  t_rgb start;
+  t_rgb end;
 };
 
 struct s_point
@@ -94,8 +103,6 @@ struct s_fractol {
   t_point julia_const;
 
   t_color color;
-
-  t_non_diverges non_diverges;
 };
 
 void  my_mlx_pixel_put(t_myimg *img, int x, int y, int color);

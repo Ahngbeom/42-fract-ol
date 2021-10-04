@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 16:13:57 by bahn              #+#    #+#             */
-/*   Updated: 2021/09/30 18:21:57 by bahn             ###   ########.fr       */
+/*   Updated: 2021/10/05 00:01:51 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,16 @@ int     fractol_init(t_fractol *fractol, char **argv)
                 ft_putendl_fd("Fractol Type Error", 1);
                 exit(1);
         }
-
         fractol->mlx = mlx_init();
         fractol->win = mlx_new_window(fractol->mlx, WIDTH, HEIGHT, "bahn's fract-ol");
         
         fractol->img.img = mlx_new_image(fractol->mlx, WIDTH, HEIGHT);
         fractol->img.addr = mlx_get_data_addr(fractol->img.img, &fractol->img.bits_per_pixel, \
                                                 &fractol->img.line_length, &fractol->img.endian);
-        
         if (fractol->mlx == NULL || fractol->win == NULL || fractol->img.img == NULL || fractol->img.addr == NULL)
         {
                 ft_putendl_fd("mlx error", 1);
-		exit(1);
+				exit(1);
         }
         
         fractol->center.x = 0;
@@ -50,13 +48,20 @@ int     fractol_init(t_fractol *fractol, char **argv)
 		
         fractol->julia_const.x = -0.1875;
         fractol->julia_const.y = -1.0944;
+		fractol->julia_const.x = 0.290625;
+        fractol->julia_const.y = 0.011111;
 
-        fractol->color.rgb_ptr = &fractol->color.r;
-        fractol->color.r = 255;
-        fractol->color.g = 15;
-        fractol->color.b = 0;
+        fractol->color.rgb_ptr = NULL;
 
-		fractol->non_diverges.max_iter = 0;
+        fractol->color.start.r = 255;
+        fractol->color.start.g = 0;
+        fractol->color.start.b = 0;
+        fractol->color.end.r = 255;
+        fractol->color.end.g = 255;
+        fractol->color.end.b = 0;
+
+        
+
         return (0);
 }
 

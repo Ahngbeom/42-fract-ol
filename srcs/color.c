@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 16:22:00 by bahn              #+#    #+#             */
-/*   Updated: 2021/09/30 14:08:57 by bahn             ###   ########.fr       */
+/*   Updated: 2021/10/04 13:31:50 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,21 @@ int	color_map(t_fractol *fractol, int w, int h)
 {
         int	x;
         int	y;
-        int	color;
-
+        int color;
+        
         x = w;
         while (x--)
         {
                 y = h;
                 while (y--)
                 {
+                        // r = (x * 255) / w;
+                        // g = ((((w - x) * 255) / w) << 16);
+                        // b = (((y * 255) / h) << 8);
+                       
                         color = (x * 255) / w + ((((w - x) * 255) / w) << 16) + (((y * 255) / h) << 8);
                         mlx_pixel_put(fractol->mlx, fractol->win, x, y, color);
+                        
                         // printf("%d x %d Color : %d\n", x, y, color);
                 }
         }
@@ -38,13 +43,28 @@ int	color_map(t_fractol *fractol, int w, int h)
 
 int     set_flexible_color(int iter, t_color *color)
 {
-        double	r;
-	double	g;
-	double	b;
+        // double	r;
+	// double	g;
+	// double	b;
+        int	r;
+	int	g;
+	int	b;
+        // int     depth = (color->start ^ color->end) / 255;
+        
+        // r = fmod(iter, 16.0) * color->r + color->r;
+        // g = fmod(iter, 16.0) * color->g + color->g;
+        // b = fmod(iter, 16.0) * color->b + color->b;
 
-        r = fmod(iter, 16.0) * color->r + color->r;
-        g = fmod(iter, 16.0) * color->g + color->g;
-        b = fmod(iter, 16.0) * color->b + color->b;
+        r = (int)(color->start.r - (color->start.r / 16 * fmod(iter, 16.0))) + (int)(color->end.r / 16 * fmod(iter, 16.0));
+        g = (int)(color->start.g - (color->start.g / 16 * fmod(iter, 16.0))) + (int)(color->end.g / 16 * fmod(iter, 16.0));
+        b = (int)(color->start.b - (color->start.b / 16 * fmod(iter, 16.0))) + (int)(color->end.b / 16 * fmod(iter, 16.0));
+
+        // if (max_iter < iter) {
+        //         max_iter = iter;
+        //         printf("Max Iter : %d\n", max_iter);
+        //         printf("%#08X(%d), %#08X(%d), %#08X(%d) => %#08X\n", r, r, g, g, b, b, r + g + b);
+        // }
+
 	return (create_trgb(0, r, g, b));
 }   
 

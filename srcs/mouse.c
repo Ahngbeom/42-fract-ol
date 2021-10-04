@@ -6,16 +6,19 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 16:20:09 by bahn              #+#    #+#             */
-/*   Updated: 2021/09/30 18:15:23 by bahn             ###   ########.fr       */
+/*   Updated: 2021/10/01 10:22:45 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fract_ol.h"
 
 int	mouse_hook(int key, int x, int y, t_fractol *fractol)
-{
+{       
+        int cd_x;
+        int cd_y;
+
         if (key == 0x00000001) {
-                printf("Mouse Click (%lf, %lf)\n",  fractol->center.x + ((double)x / fractol->pixel) - (fractol->complex.x / 2), \
+                // printf("Mouse Click (%lf, %lf)\n",  fractol->center.x + ((double)x / fractol->pixel) - (fractol->complex.x / 2), \
                                                         fractol->center.y + ((double)y / fractol->pixel) - (fractol->complex.y / 2));
         }
         else if (key == SCROLL_UP || key == SCROLL_DOWN)
@@ -41,7 +44,6 @@ int	mouse_hook(int key, int x, int y, t_fractol *fractol)
                 }
                 printf("Pixel x, y: %lf, %lf, complex (x, y) : (%lf, %lf)\n", fractol->pixel, fractol->pixel, fractol->complex.x, fractol->complex.y);
                 draw_fractol(fractol);
-                mlx_put_image_to_window(fractol->mlx, fractol->win, fractol->img.img, 0, 0);
         }
         return (0);
 }
@@ -69,9 +71,8 @@ int	mouse_motion_hook(int x ,int y, t_fractol *fractol)
                 // }
                 fractol->julia_const.x = -2 + ((double)x / (WIDTH / 4));
                 fractol->julia_const.y = 2 - ((double)y / (HEIGHT / 4));
-                // printf("Julia const : (%lf, %lf)\n", fractol->julia_const.x, fractol->julia_const.y);
+                printf("Julia const : (%lf, %lf)\n", fractol->julia_const.x, fractol->julia_const.y);
                 draw_fractol(fractol);
-                mlx_put_image_to_window(fractol->mlx, fractol->win, fractol->img.img, 0, 0);
         }
         return (0);
 }
