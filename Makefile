@@ -6,7 +6,7 @@
 #    By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/03 12:52:27 by bahn              #+#    #+#              #
-#    Updated: 2021/09/30 13:07:38 by bahn             ###   ########.fr        #
+#    Updated: 2021/10/06 12:16:55 by bahn             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ LIBFT_LINK		= -Llibft -lft
 
 SRCS_PATH		= ./srcs/
 SRCS_NAME		= main.c fractol.c \
-					mandelbrot.c julia.c \
+					mandelbrot.c julia.c burning_ship.c koch_curve.c \
 					mouse.c keyboard.c color.c utils.c
 SRCS 			= $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 OBJS			= $(SRCS:.c=.o)

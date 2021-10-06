@@ -1,44 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   julia.c                                            :+:      :+:    :+:   */
+/*   burning_ship.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/30 13:06:51 by bahn              #+#    #+#             */
-/*   Updated: 2021/10/06 18:59:39 by bahn             ###   ########.fr       */
+/*   Created: 2021/10/06 12:15:52 by bahn              #+#    #+#             */
+/*   Updated: 2021/10/06 18:33:58 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fract_ol.h"
 
-int	julia_init(t_fractol *fractol)
+int burning_ship_init(t_fractol *fractol)
 {
-	fractol->f_fractol_calc = &julia;
-	fractol->center.x = 0;
-	fractol->center.y = 0;
+	fractol->f_fractol_calc = &burning_ship;
+	fractol->center.x = -0.5;
+	fractol->center.y = -0.5;
 	if (WIDTH >= HEIGHT)
-		fractol->pixel = WIDTH / 8;
+		fractol->pixel = WIDTH / 4;
 	else
-		fractol->pixel = HEIGHT / 8;
+		fractol->pixel = HEIGHT / 4;
 	fractol->complex.x = WIDTH / fractol->pixel;
 	fractol->complex.y = HEIGHT / fractol->pixel;
-
-	fractol->julia_const.x = -0.1875;
-	fractol->julia_const.y = -1.0944;
-	// fractol->julia_const.x = 0.290625;
-    // fractol->julia_const.y = 0.011111;
 
 	fractol->color.rgb_ptr = NULL;
 	fractol->color.start.r = 0;
 	fractol->color.start.g = 0;
-	fractol->color.start.b = 112;
+	fractol->color.start.b = 16;
 	fractol->color.end.r = 255;
-	fractol->color.end.g = 255;
+	fractol->color.end.g = 0;
 	fractol->color.end.b = 0;
 }
 
-int     julia(t_fractol *fractol, int w, int h, int iter)
+int burning_ship(t_fractol *fractol, int w, int h, int iter)
 {
 	double c_re;
 	double c_im;
@@ -46,14 +41,14 @@ int     julia(t_fractol *fractol, int w, int h, int iter)
 	double y;
 	double temp;
 
-	c_re = fractol->julia_const.x;
-	c_im = fractol->julia_const.y;
-	x = fractol->center.x + ((double)w / fractol->pixel) - (fractol->complex.x / 2);
-	y = fractol->center.y + ((double)h / fractol->pixel) - (fractol->complex.y / 2);
+	c_re = fractol->center.x + (((double)w / fractol->pixel) - (fractol->complex.x / 2));
+	c_im = fractol->center.y + (((double)h / fractol->pixel) - (fractol->complex.y / 2));
+	x = c_re;
+	y = c_im;
 	while ((pow(x, 2.0) + pow(y, 2.0) <= 4) && (iter < ITER_MAX))
 	{
 		temp = pow(x, 2.0) - pow(y, 2.0) + c_re;
-		y = 2 * x * y + c_im;
+		y = fabs(2 * x * y) + c_im;
 		x = temp;
 		iter++;
 	}

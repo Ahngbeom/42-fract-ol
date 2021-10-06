@@ -6,11 +6,33 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:06:24 by bahn              #+#    #+#             */
-/*   Updated: 2021/09/30 16:05:20 by bahn             ###   ########.fr       */
+/*   Updated: 2021/10/06 19:32:17 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fract_ol.h"
+
+int		mandelbrot_init(t_fractol *fractol)
+{
+	fractol->f_fractol_calc = &mandelbrot;
+	fractol->center.x = 0;
+	fractol->center.y = 0;
+	if (WIDTH >= HEIGHT)
+		fractol->pixel = WIDTH / 4;
+	else
+		fractol->pixel = HEIGHT / 4;
+
+	// 복소수
+	fractol->complex.x = WIDTH / fractol->pixel;
+	fractol->complex.y = HEIGHT / fractol->pixel;
+	fractol->color.rgb_ptr = NULL;
+	fractol->color.start.r = 255;
+	fractol->color.start.g = 0;
+	fractol->color.start.b = 0;
+	fractol->color.end.r = 255;
+	fractol->color.end.g = 255;
+	fractol->color.end.b = 0;
+}
 
 int     mandelbrot(t_fractol *fractol, int w, int h, int iter)
 {
