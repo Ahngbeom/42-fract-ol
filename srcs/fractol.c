@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 16:13:57 by bahn              #+#    #+#             */
-/*   Updated: 2021/10/06 18:30:17 by bahn             ###   ########.fr       */
+/*   Updated: 2021/10/07 16:52:09 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ int     fractol_init(t_fractol *fractol, char **argv)
                 fractol->f_fractol_init = julia_init;
         else if (ft_strncmp(argv[1], "Burning ship", ft_strlen("Burning ship")) == 0)
                 fractol->f_fractol_init = burning_ship_init;
-        else if (ft_strncmp(argv[1], "Koch curve", ft_strlen("Koch curve")) == 0)
-                fractol->f_fractol_init = koch_curve_init;
         else
                 ft_exception_exit("Fractol Type Error", "\e[92m[Mandelbrot] [Julia] [Burning ship]\e[0m");
         fractol->f_fractol_init(fractol);
@@ -52,7 +50,7 @@ void    draw_fractol(t_fractol *fractol)
                         if (iter == ITER_MAX)
                                 my_mlx_pixel_put(&fractol->img, w, h, 0x00000000);
                         else
-                                my_mlx_pixel_put(&fractol->img, w, h, set_flexible_color(iter, &fractol->color));
+                                my_mlx_pixel_put(&fractol->img, w, h, set_color(iter, &fractol->color));
                         h++;
                 }
                 w++;

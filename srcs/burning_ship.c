@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 12:15:52 by bahn              #+#    #+#             */
-/*   Updated: 2021/10/06 18:33:58 by bahn             ###   ########.fr       */
+/*   Updated: 2021/10/07 14:45:52 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int burning_ship_init(t_fractol *fractol)
 {
-	fractol->f_fractol_calc = &burning_ship;
+	fractol->f_fractol_calc = burning_ship;
 	fractol->center.x = -0.5;
 	fractol->center.y = -0.5;
 	if (WIDTH >= HEIGHT)
@@ -23,7 +23,6 @@ int burning_ship_init(t_fractol *fractol)
 		fractol->pixel = HEIGHT / 4;
 	fractol->complex.x = WIDTH / fractol->pixel;
 	fractol->complex.y = HEIGHT / fractol->pixel;
-
 	fractol->color.rgb_ptr = NULL;
 	fractol->color.start.r = 0;
 	fractol->color.start.g = 0;

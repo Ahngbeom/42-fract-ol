@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 15:56:18 by bahn              #+#    #+#             */
-/*   Updated: 2021/10/06 18:59:48 by bahn             ###   ########.fr       */
+/*   Updated: 2021/10/07 15:55:32 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,6 @@ typedef struct s_rgb t_rgb;
 typedef struct s_color t_color;
 typedef struct s_point t_point;
 typedef struct s_myimg t_myimg;
-
-typedef struct s_julia t_julia;
-typedef struct s_koch t_koch;
-
 typedef struct s_fractol t_fractol;
 
 struct s_rgb
@@ -52,19 +48,6 @@ struct  s_myimg
   int	endian;
 };
 
-struct s_koch
-{
-  double leg;
-  t_point vertex_left;
-  t_point vertex_top;
-  t_point vertex_right;
-};
-
-struct s_julia
-{
-  t_point julia_const;
-};
-
 struct s_fractol {
   void	*mlx;
 	void	*win;
@@ -77,8 +60,7 @@ struct s_fractol {
   t_point center;
   t_point complex;
   t_point mouse;
-  t_point julia_const;
-  t_koch koch_const;
-
   t_color color;
+
+  t_point julia_const;
 };
