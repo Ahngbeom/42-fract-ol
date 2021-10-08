@@ -6,13 +6,13 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 12:15:52 by bahn              #+#    #+#             */
-/*   Updated: 2021/10/07 14:45:52 by bahn             ###   ########.fr       */
+/*   Updated: 2021/10/08 22:23:38 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fract_ol.h"
 
-int burning_ship_init(t_fractol *fractol)
+int	burning_ship_init(t_fractol *fractol)
 {
 	fractol->f_fractol_calc = burning_ship;
 	fractol->center.x = -0.5;
@@ -23,25 +23,34 @@ int burning_ship_init(t_fractol *fractol)
 		fractol->pixel = HEIGHT / 4;
 	fractol->complex.x = WIDTH / fractol->pixel;
 	fractol->complex.y = HEIGHT / fractol->pixel;
-	fractol->color.rgb_ptr = NULL;
-	fractol->color.start.r = 0;
-	fractol->color.start.g = 0;
-	fractol->color.start.b = 16;
-	fractol->color.end.r = 255;
-	fractol->color.end.g = 0;
-	fractol->color.end.b = 0;
+	color_init(fractol, fractol->color->start, 0, 0, 16);
+	color_init(fractol, fractol->color->end, 255, 0, 0);
+	// printf("start r addr : %i\n", fractol->color->start);
+	// printf("start g addr : %i\n", fractol->color->start->next);
+	// printf("start b addr : %i\n", fractol->color->start->next->next);
+	// printf("start r addr : %i\n", fractol->color->end->prev->prev->prev);
+	// printf("start g addr : %i\n", fractol->color->end->prev->prev);
+	// printf("start b addr : %i\n", fractol->color->end->prev);
+	// printf("end r addr : %i\n", fractol->color->end);
+	// printf("end g addr : %i\n", fractol->color->end->next);
+	// printf("end b addr : %i\n", fractol->color->end->next->next);
+	// printf("end r addr : %i\n", fractol->color->start->next->next->next);
+	// printf("end g addr : %i\n", fractol->color->start->next->next->next->next);
+	// printf("end b addr : %i\n", fractol->color->start->next->next->next->next->next);
 }
 
-int burning_ship(t_fractol *fractol, int w, int h, int iter)
+int	burning_ship(t_fractol *fractol, int w, int h, int iter)
 {
-	double c_re;
-	double c_im;
-	double x;
-	double y;
-	double temp;
+	double	c_re;
+	double	c_im;
+	double	x;
+	double	y;
+	double	temp;
 
-	c_re = fractol->center.x + (((double)w / fractol->pixel) - (fractol->complex.x / 2));
-	c_im = fractol->center.y + (((double)h / fractol->pixel) - (fractol->complex.y / 2));
+	c_re = fractol->center.x + \
+					((w / fractol->pixel) - (fractol->complex.x / 2));
+	c_im = fractol->center.y + \
+					((h / fractol->pixel) - (fractol->complex.y / 2));
 	x = c_re;
 	y = c_im;
 	while ((pow(x, 2.0) + pow(y, 2.0) <= 4) && (iter < ITER_MAX))

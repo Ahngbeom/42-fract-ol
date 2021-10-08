@@ -6,7 +6,7 @@
 #    By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/03 12:52:27 by bahn              #+#    #+#              #
-#    Updated: 2021/10/07 17:08:01 by bahn             ###   ########.fr        #
+#    Updated: 2021/10/08 21:56:48 by bahn             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,9 +30,9 @@ LIBFT_PATH		= ./libft/
 LIBFT_LINK		= -Llibft -lft
 
 SRCS_PATH		= ./srcs/
-SRCS_NAME		= main.c fractol.c \
+SRCS_NAME		= main.c fractol.c draw.c \
 					mandelbrot.c julia.c burning_ship.c \
-					mouse.c keyboard.c color.c conversion.c utils.c
+					mouse.c keyboard.c color.c centroid.c scene.c utils.c
 SRCS 			= $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 OBJS			= $(SRCS:.c=.o)
 

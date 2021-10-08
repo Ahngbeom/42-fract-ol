@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 15:56:18 by bahn              #+#    #+#             */
-/*   Updated: 2021/10/07 15:55:32 by bahn             ###   ########.fr       */
+/*   Updated: 2021/10/08 22:11:29 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,25 @@ typedef struct s_point t_point;
 typedef struct s_myimg t_myimg;
 typedef struct s_fractol t_fractol;
 
-struct s_rgb
+struct s_rgb2
 {
   int r;
   int g;
   int b;
 };
 
+struct s_rgb
+{
+  int value;
+  t_rgb *prev;
+  t_rgb *next;
+};
+
 struct s_color
 {
-  int *rgb_ptr;
-
-  t_rgb start;
-  t_rgb end;
+  t_rgb *rgb_ptr;
+  t_rgb *start;
+  t_rgb *end;
 };
 
 struct s_point
@@ -43,8 +49,8 @@ struct  s_myimg
 {
   void	*img;
   char	*addr;
-  int bits_per_pixel;
-  int	line_length;
+  int bpp;
+  int	size_line;
   int	endian;
 };
 
@@ -60,7 +66,6 @@ struct s_fractol {
   t_point center;
   t_point complex;
   t_point mouse;
-  t_color color;
-
+  t_color *color;
   t_point julia_const;
 };
