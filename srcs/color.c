@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 16:22:00 by bahn              #+#    #+#             */
-/*   Updated: 2021/10/08 22:28:58 by bahn             ###   ########.fr       */
+/*   Updated: 2021/10/08 22:57:13 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,29 @@ int	color_init(t_fractol *fractol, t_rgb *dest, int r_value, int g_value, int b_
 		ft_exception_exit("Malloc Error", "Color R Uninitialized", fractol);
 	b->value = b_value;
 	
-	r->prev = NULL;
-	r->next = g;
-	g->prev = r;
-	g->next = b;
-	b->prev = g;
-	b->next = NULL;
-	
-	if (dest == fractol->color->start)
+	if (fractol->color->rgb_ptr == fractol->color->start)
 	{
 		fractol->color->start = r;
+		r->prev = NULL;
+		r->next = g;
+		g->prev = r;
+		g->next = b;
+		b->prev = g;
+		b->next = NULL;
+		fractol->color->rgb_ptr = fractol->color->end;
 	}
-	else if (dest == fractol->color->end)
+	else if (fractol->color->rgb_ptr == fractol->color->end)
 	{
 		fractol->color->end = r;
 		fractol->color->end->prev = fractol->color->start->next->next;
 		fractol->color->start->next->next->next = fractol->color->end;
+		r->next = g;
+		g->prev = r;
+		g->next = b;
+		b->prev = g;
+		b->next = NULL;
+
+		fractol->color->rgb_ptr = NULL;
 	}
 }
 
