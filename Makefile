@@ -6,7 +6,7 @@
 #    By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/03 12:52:27 by bahn              #+#    #+#              #
-#    Updated: 2021/10/08 21:56:48 by bahn             ###   ########.fr        #
+#    Updated: 2021/10/11 21:15:52 by bahn             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ ifeq ($(OS), Linux)
 	MLX_FLAGS	= -Lminilibx-linux/ -lmlx -lX11 -lXext -lm -lbsd -O3
 else
 	MLX_PATH	= ./minilibx-mac
-	MLX_FLAGS	= -Lminilibx-mac/ -lmlx -lm -framework OpenGL -framework AppKit
+	MLX_FLAGS	= -Lminilibx-mac/ -lmlx -lm -framework OpenGL -framework AppKit -O3
 endif
 
 LIBFT_PATH		= ./libft/
@@ -39,12 +39,12 @@ OBJS			= $(SRCS:.c=.o)
 all 			: $(NAME)
 
 .c.o			:
-				$(CC) $(INCFLAGS) -c $< $(MLX_FLAGS) $(LIBFT_LINK) -o $@
+				$(CC) $(CFLAGS) -c $< $(INCFLAGS) $(MLX_FLAGS) $(LIBFT_LINK) -o $@
 
 $(NAME) 		: $(OBJS)
 				$(MAKE) all -C $(MLX_PATH)
 				$(MAKE) all -C $(LIBFT_PATH)
-				$(CC) $(INCFLAGS) $^ $(MLX_FLAGS) $(LIBFT_LINK) -o $@
+				$(CC) $(CFLAGS) $^ $(INCFLAGS) $(MLX_FLAGS) $(LIBFT_LINK) -o $@
 
 clean			: 
 				$(MAKE) clean -C $(MLX_PATH)

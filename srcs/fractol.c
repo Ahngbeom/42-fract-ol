@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 15:25:01 by bahn              #+#    #+#             */
-/*   Updated: 2021/10/08 22:53:02 by bahn             ###   ########.fr       */
+/*   Updated: 2021/10/11 13:52:28 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,5 @@ void	fractol_init(t_fractol *data, char **argv)
 	else
 		ft_exception_exit("Fractol Type Error", \
 			"\e[92m[Mandelbrot] [Julia] [Burning ship]\e[0m", data);
-	
-	data->color->rgb_ptr = data->color->start;
 	data->f_fractol_init(data);
-	
-	// data->color = malloc(sizeof(t_color));
-	
-	
 }

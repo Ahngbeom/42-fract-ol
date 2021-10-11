@@ -6,57 +6,30 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 16:22:00 by bahn              #+#    #+#             */
-/*   Updated: 2021/10/08 22:57:13 by bahn             ###   ########.fr       */
+/*   Updated: 2021/10/11 16:28:14 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fract_ol.h"
 
-int	color_init(t_fractol *fractol, t_rgb *dest, int r_value, int g_value, int b_value)
+void	color_init(t_fractol *fractol, char *values)
 {
-	t_rgb *r;
-	t_rgb *g;
-	t_rgb *b;
-	
-	r = (t_rgb *)malloc(sizeof(t_rgb));
-	if (r == NULL)
-		ft_exception_exit("Malloc Error", "Color R Uninitialized", fractol);
-	r->value = r_value;
+	int		i;
+	char	**rgb;
 
-	g = (t_rgb *)malloc(sizeof(t_rgb));
-	if (r == NULL)
-		ft_exception_exit("Malloc Error", "Color R Uninitialized", fractol);
-	g->value = g_value;
-
-	b = (t_rgb *)malloc(sizeof(t_rgb));
-	if (r == NULL)
-		ft_exception_exit("Malloc Error", "Color R Uninitialized", fractol);
-	b->value = b_value;
-	
-	if (fractol->color->rgb_ptr == fractol->color->start)
+	rgb = ft_split(values, ' ');
+	fractol->color.rgb = malloc(sizeof(int) * 6);
+	if (fractol->color.rgb == NULL)
+		ft_exception_exit("Color Initialized Error", "malloc", fractol);
+	i = 0;
+	while (rgb[i] != NULL)
 	{
-		fractol->color->start = r;
-		r->prev = NULL;
-		r->next = g;
-		g->prev = r;
-		g->next = b;
-		b->prev = g;
-		b->next = NULL;
-		fractol->color->rgb_ptr = fractol->color->end;
+		fractol->color.rgb[i] = ft_atoi(rgb[i]);
+		free(rgb[i]);
+		i++;
 	}
-	else if (fractol->color->rgb_ptr == fractol->color->end)
-	{
-		fractol->color->end = r;
-		fractol->color->end->prev = fractol->color->start->next->next;
-		fractol->color->start->next->next->next = fractol->color->end;
-		r->next = g;
-		g->prev = r;
-		g->next = b;
-		b->prev = g;
-		b->next = NULL;
-
-		fractol->color->rgb_ptr = NULL;
-	}
+	free(rgb);
+	fractol->color.target_idx = -1;
 }
 
 int	set_color(int iter, t_color *color)
@@ -65,65 +38,69 @@ int	set_color(int iter, t_color *color)
 	int	g;
 	int	b;
 
-	r = (int)(color->start->value - (color->start->value / 16 * fmod(iter, 16.0))) \
-		+ (int)(color->end->value / 16 * fmod(iter, 16.0));
-	g = (int)(color->start->next->value - (color->start->next->value / 16 * fmod(iter, 16.0))) \
-		+ (int)(color->end->next->value / 16 * fmod(iter, 16.0));
-	b = (int)(color->start->next->next->value - (color->start->next->next->value / 16 * fmod(iter, 16.0))) \
-		+ (int)(color->end->next->next->value / 16 * fmod(iter, 16.0));
+	r = (int)(color->rgb[0] - (color->rgb[0] / 16 * fmod(iter, 16.0))) \
+		+ (int)(color->rgb[3] / 16 * fmod(iter, 16.0));
+	g = (int)(color->rgb[1] - (color->rgb[1] / 16 * fmod(iter, 16.0))) \
+		+ (int)(color->rgb[4] / 16 * fmod(iter, 16.0));
+	b = (int)(color->rgb[2] - (color->rgb[2] / 16 * fmod(iter, 16.0))) \
+		+ (int)(color->rgb[5] / 16 * fmod(iter, 16.0));
 	return (r << 16 | g << 8 | b);
 }
 
-void    change_rgb_ptr(int key, t_fractol *fractol)
+static	void	color_info(t_fractol *fractol, int index)
 {
-	if (fractol->color->rgb_ptr == NULL)
-		fractol->color->rgb_ptr = fractol->color->start;
-        else if (key == NUMPAD_4)
-		fractol->color->rgb_ptr = fractol->color->rgb_ptr->prev;
+	if (index == 0)
+		ft_putstr_fd("Select RGB : [\e[1;31mR\e[0m G B R G B]", 1);
+	else if (index == 1)
+		ft_putstr_fd("Select RGB : [R \e[1;32mG\e[0m B R G B]", 1);
+	else if (index == 2)
+		ft_putstr_fd("Select RGB : [R G \e[1;35mB\e[0m R G B]", 1);
+	else if (index == 3)
+		ft_putstr_fd("Select RGB : [R G B \e[1;31mR\e[0m G B]", 1);
+	else if (index == 4)
+		ft_putstr_fd("Select RGB : [R G B R \e[1;32mG\e[0m B]", 1);
 	else
-		fractol->color->rgb_ptr = fractol->color->rgb_ptr->next;
-
-	if (fractol->color->rgb_ptr == fractol->color->start)
-		ft_putendl_fd("Select RGB : [\e[1;31mR\e[0m G B R G B]", 1);
-	else if (fractol->color->rgb_ptr == fractol->color->start->next)
-		ft_putendl_fd("Select RGB : [R \e[1;32mG\e[0m B R G B]", 1);
-	else if (fractol->color->rgb_ptr == fractol->color->start->next->next) 
-		ft_putendl_fd("Select RGB : [R G \e[1;35mB\e[0m R G B]", 1);
-	else if (fractol->color->rgb_ptr == fractol->color->end)
-		ft_putendl_fd("Select RGB : [R G B \e[1;31mR\e[0m G B]", 1);
-	else if (fractol->color->rgb_ptr == fractol->color->end->next) 
-		ft_putendl_fd("Select RGB : [R G B R \e[1;32mG\e[0m B]", 1);
-	else
-		ft_putendl_fd("Select RGB : [R G B R G \e[1;35mB\e[0m]", 1);
-        ft_putstr_fd("=> ", 1);
-        ft_putnbr_fd(fractol->color->rgb_ptr->value, 1);
-        ft_putchar_fd('\n', 1);
+		ft_putstr_fd("Select RGB : [R G B R G \e[1;35mB\e[0m]", 1);
+	ft_putstr_fd(" => ", 1);
+	ft_putnbr_fd(fractol->color.rgb[index], 1);
+	ft_putchar_fd('\n', 1);
 }
 
-void    change_rgb_value(int key, t_fractol *fractol)
+void	change_rgb_ptr(int key, t_fractol *fractol)
 {
-        if (fractol->color->rgb_ptr == NULL) {
-                ft_putendl_fd("First select RGB : [R G B R G B] (NUMPAD 4 or 6)", 1);
-                return ;
-        }
-        else if (key == NUMPAD_2) 
-        {       
-                if (fractol->color->rgb_ptr->value == 0)
-                        fractol->color->rgb_ptr->value = 255;
-                else if (fractol->color->rgb_ptr->value - 16 < 0)
-                        fractol->color->rgb_ptr->value = 0;
-                else
-                        fractol->color->rgb_ptr->value -= 16;
-        }
-        else {
-                if (fractol->color->rgb_ptr->value == 255)
-                        fractol->color->rgb_ptr->value = 0;
-                else if (fractol->color->rgb_ptr->value + 16 > 255)
-                        fractol->color->rgb_ptr->value = 255;
-                else
-                        fractol->color->rgb_ptr->value += 16;
-        }
-        ft_putstr_fd("=> ", 1);
-        ft_putnbr_fd(fractol->color->rgb_ptr->value, 1);
-        ft_putchar_fd('\n', 1);
+	if (fractol->color.target_idx == -1)
+		fractol->color.target_idx = 0;
+	else if (key == NUMPAD_4)
+	{
+		if (--fractol->color.target_idx < 0)
+			fractol->color.target_idx = 5;
+	}
+	else
+	{
+		if (++fractol->color.target_idx > 5)
+			fractol->color.target_idx = 0;
+	}
+	color_info(fractol, fractol->color.target_idx);
+}
+
+void	change_rgb_value(int key, t_fractol *fractol)
+{
+	if (fractol->color.target_idx == -1)
+	{
+		ft_putendl_fd("First select RGB : [R G B R G B] (NUMPAD 4 or 6)", 1);
+		return ;
+	}
+	else if (key == NUMPAD_2)
+	{
+		fractol->color.rgb[fractol->color.target_idx] -= 15;
+		if (fractol->color.rgb[fractol->color.target_idx] < 0)
+			fractol->color.rgb[fractol->color.target_idx] = 255;
+	}
+	else
+	{
+		fractol->color.rgb[fractol->color.target_idx] += 15;
+		if (fractol->color.rgb[fractol->color.target_idx] > 255)
+			fractol->color.rgb[fractol->color.target_idx] = 0;
+	}
+	color_info(fractol, fractol->color.target_idx);
 }

@@ -6,13 +6,13 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:06:51 by bahn              #+#    #+#             */
-/*   Updated: 2021/10/08 22:16:34 by bahn             ###   ########.fr       */
+/*   Updated: 2021/10/11 21:16:35 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fract_ol.h"
 
-int	julia_init(t_fractol *fractol)
+void	julia_init(t_fractol *fractol)
 {
 	fractol->f_fractol_calc = julia;
 	fractol->center.x = 0;
@@ -25,8 +25,7 @@ int	julia_init(t_fractol *fractol)
 	fractol->complex.y = HEIGHT / fractol->pixel;
 	fractol->julia_const.x = -0.1875;
 	fractol->julia_const.y = -1.0944;
-	color_init(fractol, fractol->color->start, 0, 0, 112);
-	color_init(fractol, fractol->color->end, 255, 255, 0);
+	color_init(fractol, "0 0 120 255 255 0");
 }
 
 int	julia(t_fractol *fractol, int w, int h, int iter)

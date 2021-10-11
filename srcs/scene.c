@@ -6,98 +6,62 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 15:58:57 by bahn              #+#    #+#             */
-/*   Updated: 2021/10/08 16:03:59 by bahn             ###   ########.fr       */
+/*   Updated: 2021/10/11 21:52:12 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fract_ol.h"
 
-void    change_scene(int key, t_fractol *fractol)
+static	void	set_complex_plane(t_fractol *fractol, \
+					double pixel, t_point center, t_point complex)
 {
-        if (fractol->f_fractol_calc == mandelbrot) {
-                if (key == OPTION_1) {
-                    fractol->center.x = -0.5;
-	                fractol->center.y = 0;
-	                if (WIDTH >= HEIGHT)
-		                fractol->pixel = WIDTH / 4;
-					else
-						fractol->pixel = HEIGHT / 4;
-					fractol->complex.x = WIDTH / fractol->pixel;
-					fractol->complex.y = HEIGHT / fractol->pixel;
-                }
-                else if (key == OPTION_2) {
-                        fractol->center.x = -0.694462;
-                        fractol->center.y = -0.350859;
-                        fractol->pixel = 967.458816;
-                        fractol->complex.x = 1.116327;
-                        fractol->complex.y = 0.744218;
-                }
-                else if (key == OPTION_3) {
-                        fractol->center.x = -1.761666;
-                        fractol->center.y = -0.000292;
-                        fractol->pixel = 4991.874990;
-                        fractol->complex.x = 0.216352;
-                        fractol->complex.y = 0.144234;
-                }
-                else {
-                        fractol->center.x = -2.166811;
-                        fractol->center.y = 0.000025;
-                        fractol->pixel = 822883.947302;
-                        fractol->complex.x = 0.001312;
-                        fractol->complex.y = 0.000875;
-                }
-        }
-        else if (fractol->f_fractol_calc == julia) {
-                if (key == OPTION_1) {
-                        fractol->julia_const.x = -0.1875;
-                        fractol->julia_const.y = -1.0944;
-                }
-                else if (key == OPTION_2) {
-                        fractol->julia_const.x = 0.185185;
-                        fractol->julia_const.y = 0.644444;
-                }
-                else if (key == OPTION_3) {
-                        fractol->julia_const.x = 0.296296;
-                        fractol->julia_const.y = 0.014815;
-                }
-                else {
-                        fractol->julia_const.x = -0.866667;
-                        fractol->julia_const.y = 0;
-                }
-        }
-        else
-        {
-                if (key == OPTION_1) {
-                        fractol->center.x = -0.5;
-	                fractol->center.y = -0.5;
-	                if (WIDTH >= HEIGHT)
-		                fractol->pixel = WIDTH / 4;
-                        else
-                                fractol->pixel = HEIGHT / 4;
-                        fractol->complex.x = WIDTH / fractol->pixel;
-                        fractol->complex.y = HEIGHT / fractol->pixel;
-                }
-                else if (key == OPTION_2) {
-                        fractol->center.x = -0.575362;
-                        fractol->center.y = -0.812751;
-                        fractol->pixel = 967.458816;
-                        fractol->complex.x = 1.116327;
-                        fractol->complex.y = 0.744218;
-                }
-                else if (key == OPTION_3)
-                {
-                        fractol->center.x = -1.747374;
-                        fractol->center.y = -0.033965;
-                        fractol->pixel = 7188.299986;
-                        fractol->complex.x = 0.150244;
-                        fractol->complex.y = 0.100163;
-                }
-                else {
-                        fractol->center.x = -1.761435;
-                        fractol->center.y = -0.023273;
-                        fractol->pixel = 31547395.556643;
-                        fractol->complex.x = 0.000034;
-                        fractol->complex.y = 0.000023;
-                }
-        }
+	fractol->pixel = pixel;
+	fractol->center = center;
+	fractol->complex = complex;
+}
+
+void	change_scene_mandelb(int key, t_fractol *fractol)
+{
+	if (key == OPTION_1)
+		set_complex_plane(fractol, WIDTH / 4, set_point(-0.5, 0), \
+			set_point(WIDTH / (double)(WIDTH / 4), \
+					HEIGHT / (double)(WIDTH / 4)));
+	else if (key == OPTION_2)
+		set_complex_plane(fractol, 967.458816, \
+			set_point(-0.694462, -0.350859), set_point(1.116327, 0.744218));
+	else if (key == OPTION_3)
+		set_complex_plane(fractol, 4991.874990, \
+			set_point(-1.761666, -0.000292), set_point(0.216352, 0.144234));
+	else
+		set_complex_plane(fractol, 476205.988022, \
+			set_point(-0.730991, -0.185956), set_point(0.002268, 0.001512));
+}
+
+void	change_scene_julia(int key, t_fractol *fractol)
+{
+	if (key == OPTION_1)
+		fractol->julia_const = set_point(-0.1875, -1.0944);
+	else if (key == OPTION_2)
+		fractol->julia_const = set_point(0.185185, 0.644444);
+	else if (key == OPTION_3)
+		fractol->julia_const = set_point(0.296296, 0.014815);
+	else
+		fractol->julia_const = set_point(-0.866667, 0);
+}
+
+void	change_scene_burnship(int key, t_fractol *fractol)
+{
+	if (key == OPTION_1)
+		set_complex_plane(fractol, WIDTH / 4, set_point(-0.5, -0.5), \
+			set_point(WIDTH / (double)(WIDTH / 4), \
+					HEIGHT / (double)(WIDTH / 4)));
+	else if (key == OPTION_2)
+		set_complex_plane(fractol, 967.458816, \
+			set_point(-0.575362, -0.812751), set_point(1.116327, 0.744218));
+	else if (key == OPTION_3)
+		set_complex_plane(fractol, 4991.874990, \
+			set_point(-1.705783, -0.040083), set_point(0.216352, 0.144234));
+	else
+		set_complex_plane(fractol, 10351.151980, \
+			set_point(-1.746212, -0.040321), set_point(0.103622, 0.070098));
 }
