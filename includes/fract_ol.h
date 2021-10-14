@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 14:33:36 by bahn              #+#    #+#             */
-/*   Updated: 2021/10/11 21:26:11 by bahn             ###   ########.fr       */
+/*   Updated: 2021/10/14 10:53:23 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define  WIDTH       1080
 # define  HEIGHT      720
 
-# define  ITER_MAX    50
+# define  ITER_MAX    1000
 
 # define  ZOOM        1.2
 

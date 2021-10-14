@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 15:25:01 by bahn              #+#    #+#             */
-/*   Updated: 2021/10/11 13:52:28 by bahn             ###   ########.fr       */
+/*   Updated: 2021/10/12 13:35:41 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,14 @@ static	void	minilibx_init(t_fractol *data)
 void	fractol_init(t_fractol *data, char **argv)
 {
 	minilibx_init(data);
-	if (!ft_strncmp(argv[1], "Mandelbrot", ft_strlen("Mandelbrot")))
+	if (ft_strlen(argv[1]) == ft_strlen("Mandelbrot") && \
+		(!ft_strncmp(argv[1], "Mandelbrot", ft_strlen("Mandelbrot"))))
 		data->f_fractol_init = mandelbrot_init;
-	else if (!ft_strncmp(argv[1], "Julia", ft_strlen("Julia")))
+	else if (ft_strlen(argv[1]) == ft_strlen("Julia") && \
+		(!ft_strncmp(argv[1], "Julia", ft_strlen("Julia"))))
 		data->f_fractol_init = julia_init;
-	else if (!ft_strncmp(argv[1], "Burning ship", ft_strlen("Burning ship")))
+	else if (ft_strlen(argv[1]) == ft_strlen("Burning ship") && \
+		(!ft_strncmp(argv[1], "Burning ship", ft_strlen("Burning ship"))))
 		data->f_fractol_init = burning_ship_init;
 	else
 		ft_exception_exit("Fractol Type Error", \

@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 15:56:21 by bahn              #+#    #+#             */
-/*   Updated: 2021/10/11 21:49:22 by bahn             ###   ########.fr       */
+/*   Updated: 2021/10/12 13:35:03 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ void	ft_exception_exit(char *title, char *detail, t_fractol *fractol)
 	if (detail != NULL)
 	{
 		ft_putstr_fd(" : \e[92m", 1);
-		ft_putendl_fd(detail, 1);
-		ft_putstr_fd("\e[0m", 1);
+		ft_putstr_fd(detail, 1);
 	}
 	ft_putstr_fd("\e[0m\n", 1);
 	if (fractol->mlx != NULL)

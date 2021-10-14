@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:06:51 by bahn              #+#    #+#             */
-/*   Updated: 2021/10/11 21:16:35 by bahn             ###   ########.fr       */
+/*   Updated: 2021/10/13 14:46:09 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ void	julia_init(t_fractol *fractol)
 
 int	julia(t_fractol *fractol, int w, int h, int iter)
 {
-	double	c_re;
-	double	c_im;
 	double	z_x;
 	double	z_y;
+	double	c_re;
+	double	c_im;
 	double	temp;
 
-	z_x = fractol->center.x + (w / fractol->pixel) - (fractol->complex.x / 2);
-	z_y = fractol->center.y + (h / fractol->pixel) - (fractol->complex.y / 2);
+	z_x = fractol->center.x + ((w / fractol->pixel) - (fractol->complex.x / 2));
+	z_y = fractol->center.y + ((h / fractol->pixel) - (fractol->complex.y / 2));
 	c_re = fractol->julia_const.x;
 	c_im = fractol->julia_const.y;
 	while ((pow(z_x, 2.0) + pow(z_y, 2.0) <= 4) && (iter < ITER_MAX))
