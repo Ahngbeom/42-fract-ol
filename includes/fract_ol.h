@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 14:33:36 by bahn              #+#    #+#             */
-/*   Updated: 2021/10/14 10:53:23 by bahn             ###   ########.fr       */
+/*   Updated: 2021/10/17 17:34:00 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <math.h>
-# include <stdio.h>
 
 # define  WIDTH       1080
 # define  HEIGHT      720
 
-# define  ITER_MAX    1000
+# define  ITER_MAX    50
 
 # define  ZOOM        1.2
 
+// Linux
 # ifdef __linux__
 	// Program Exit Key
 #  define  ESC_KEY     0x0000FF1B
@@ -52,19 +52,20 @@
 #  define  NUMPAD_6    0X0000FF98
 #  define  NUMPAD_2    0X0000FF99
 
-	// Change Option Key
-#  define  OPTION_1    0X00000031
-#  define  OPTION_2    0X00000032
-#  define  OPTION_3    0X00000033
-#  define  OPTION_4    0X00000034
+	// Change Scene Key
+#  define  SCENE_1    0X00000031
+#  define  SCENE_2    0X00000032
+#  define  SCENE_3    0X00000033
+#  define  SCENE_4    0X00000034
 
+// MacOS
 # else
 	// Program Exit Key
 #  define  ESC_KEY     53
 
 	// Zoom IN/OUT Key
-#  define  SCROLL_UP   0X00000004
-#  define  SCROLL_DOWN 0X00000005
+#  define  SCROLL_UP   4
+#  define  SCROLL_DOWN 5
 
 	// Moving Centroid Key
 #  define  LEFT_KEY    123
@@ -81,11 +82,11 @@
 #  define  NUMPAD_6    88
 #  define  NUMPAD_2    84
 
-	// Change Option Key
-#  define  OPTION_1    18
-#  define  OPTION_2    19
-#  define  OPTION_3    20
-#  define  OPTION_4    21
+	// Change Scene Key
+#  define  SCENE_1    18
+#  define  SCENE_2    19
+#  define  SCENE_3    20
+#  define  SCENE_4    21
 
 # endif
 

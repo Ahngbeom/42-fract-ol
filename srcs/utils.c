@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 15:56:21 by bahn              #+#    #+#             */
-/*   Updated: 2021/10/12 13:35:03 by bahn             ###   ########.fr       */
+/*   Updated: 2021/10/17 17:28:15 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ void	ft_exception_exit(char *title, char *detail, t_fractol *fractol)
 				mlx_destroy_image(fractol->mlx, fractol->img.img);
 			mlx_destroy_window(fractol->mlx, fractol->win);
 		}
-		mlx_destroy_display(fractol->mlx);
-		free(fractol->mlx);
 	}
 	exit(EXIT_FAILURE);
 }
@@ -62,7 +60,5 @@ void	ft_free(t_fractol *fractol)
 	free(fractol->color.rgb);
 	mlx_destroy_image(fractol->mlx, fractol->img.img);
 	mlx_destroy_window(fractol->mlx, fractol->win);
-	mlx_destroy_display(fractol->mlx);
-	free(fractol->mlx);
 	exit(EXIT_SUCCESS);
 }
