@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:01:40 by bahn              #+#    #+#             */
-/*   Updated: 2021/10/11 21:55:52 by bahn             ###   ########.fr       */
+/*   Updated: 2021/10/18 15:55:31 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 void		my_mlx_pixel_put(t_myimg *img, int x, int y, int color);
 t_point		set_point(double x, double y);
-void		ft_exception_exit(char *title, char *detail, t_fractol *data);
-void		ft_free(t_fractol *fractol);
+void		ft_exception(char *title, char *detail, t_fractol *data);
+void		ft_free(t_fractol *fractol, int status);
 
 // Keyboard Hook
 int			press_key(int key, t_fractol *fractol);

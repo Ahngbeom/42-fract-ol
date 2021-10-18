@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 16:21:08 by bahn              #+#    #+#             */
-/*   Updated: 2021/10/17 17:29:07 by bahn             ###   ########.fr       */
+/*   Updated: 2021/10/18 15:49:49 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	press_key(int key, t_fractol *fractol)
 {
 	if (key == ESC_KEY)
-		ft_free(fractol);
+		ft_free(fractol, EXIT_SUCCESS);
 	else if (key == R_KEY)
 		fractol->f_fractol_init(fractol);
 	else if (key >= 123 && key <= 126)

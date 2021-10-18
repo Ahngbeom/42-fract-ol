@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 16:22:00 by bahn              #+#    #+#             */
-/*   Updated: 2021/10/11 16:28:14 by bahn             ###   ########.fr       */
+/*   Updated: 2021/10/18 16:06:53 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	color_init(t_fractol *fractol, char *values)
 	rgb = ft_split(values, ' ');
 	fractol->color.rgb = malloc(sizeof(int) * 6);
 	if (fractol->color.rgb == NULL)
-		ft_exception_exit("Color Initialized Error", "malloc", fractol);
+		ft_exception("Color Initialized Error", "malloc", fractol);
 	i = 0;
 	while (rgb[i] != NULL)
 	{

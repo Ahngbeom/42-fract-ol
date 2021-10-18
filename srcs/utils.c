@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 15:56:21 by bahn              #+#    #+#             */
-/*   Updated: 2021/10/17 17:28:15 by bahn             ###   ########.fr       */
+/*   Updated: 2021/10/18 15:56:57 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_point	set_point(double x, double y)
 	return (point);
 }
 
-void	ft_exception_exit(char *title, char *detail, t_fractol *fractol)
+void	ft_exception(char *title, char *detail, t_fractol *fractol)
 {
 	ft_putstr_fd("\e[91mError >>> \e[0m", 1);
 	if (title != NULL)
@@ -43,22 +43,5 @@ void	ft_exception_exit(char *title, char *detail, t_fractol *fractol)
 		ft_putstr_fd(detail, 1);
 	}
 	ft_putstr_fd("\e[0m\n", 1);
-	if (fractol->mlx != NULL)
-	{
-		if (fractol->win != NULL)
-		{
-			if (fractol->img.img != NULL)
-				mlx_destroy_image(fractol->mlx, fractol->img.img);
-			mlx_destroy_window(fractol->mlx, fractol->win);
-		}
-	}
-	exit(EXIT_FAILURE);
-}
-
-void	ft_free(t_fractol *fractol)
-{
-	free(fractol->color.rgb);
-	mlx_destroy_image(fractol->mlx, fractol->img.img);
-	mlx_destroy_window(fractol->mlx, fractol->win);
-	exit(EXIT_SUCCESS);
+	ft_free(fractol, EXIT_FAILURE);
 }

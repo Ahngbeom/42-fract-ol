@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 14:55:11 by bahn              #+#    #+#             */
-/*   Updated: 2021/10/17 17:14:37 by bahn             ###   ########.fr       */
+/*   Updated: 2021/10/18 16:06:44 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int argc, char **argv)
 	t_fractol	fractol;
 
 	if (argc < 2)
-		ft_exception_exit("Please enter the Fractol Type", \
+		ft_exception("Please enter the Fractol Type", \
 				"\e[92m[Mandelbrot] [Julia] [Burning ship]\e[0m", NULL);
 	else
 		fractol_init(&fractol, argv);

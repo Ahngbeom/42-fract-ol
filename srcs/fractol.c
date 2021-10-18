@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 15:25:01 by bahn              #+#    #+#             */
-/*   Updated: 2021/10/17 17:27:53 by bahn             ###   ########.fr       */
+/*   Updated: 2021/10/18 15:52:43 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,19 @@ static	void	minilibx_init(t_fractol *data)
 				data->img.addr = mlx_get_data_addr(data->img.img, \
 					&data->img.bpp, &data->img.size_line, &data->img.endian);
 				if (data->img.addr == NULL)
-					ft_exception_exit("MiniLibX Initialization Error", \
+					ft_exception("MiniLibX Initialization Error", \
 								"img_data_ptr", data);
 			}
 			else
-				ft_exception_exit("MiniLibX Initialization Error", \
+				ft_exception("MiniLibX Initialization Error", \
 							"img_ptr", data);
 		}
 		else
-			ft_exception_exit("MiniLibX Initialization Error", \
+			ft_exception("MiniLibX Initialization Error", \
 						"win_ptr", data);
 	}
 	else
-		ft_exception_exit("MiniLibX Initialization Error", "mlx_ptr", data);
+		ft_exception("MiniLibX Initialization Error", "mlx_ptr", data);
 }
 
 void	fractol_init(t_fractol *data, char **argv)
@@ -54,7 +54,7 @@ void	fractol_init(t_fractol *data, char **argv)
 		(!ft_strncmp(argv[1], "Burning ship", ft_strlen("Burning ship"))))
 		data->f_fractol_init = burning_ship_init;
 	else
-		ft_exception_exit("Fractol Type Error", \
+		ft_exception("Fractol Type Error", \
 			"\e[92m[Mandelbrot] [Julia] [Burning ship]\e[0m", data);
 	data->f_fractol_init(data);
 }
