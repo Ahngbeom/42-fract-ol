@@ -26,13 +26,30 @@ Discover 2D programming and the psychedelic universe of fractals in this project
 
 ---
 
-## 컴파일
-- Mac
+## Run
 
-    `gcc main.c -lmlx -lm -framework OpenGL -framework AppKit`
+- if your OS is Linux
 
-- Linux
+    Windows X Server (VcXsrv or Xming) 활성화 및 실행
 
-    `gcc main.c -Lminilibx-linux/ -lmlx -lX11 -lXext -lm -lbsd`
+- Compile
+  
+    `make` or `make all`
+
+- Run
+    
+    `./fractol`
+
+## How to use
+
+-   Mouse Scroll : Zoom In & Out
+
+-   Keyboard Arrow : Viewport Transformation
+
+-   Keyboard Numbers : Scene Transformation
+
+-   Keyboard Numpad [4, 6] : Select RGB Color 
+
+-   Keyboard Numpad [2, 8] : Change RGB Color Values
 
 ---

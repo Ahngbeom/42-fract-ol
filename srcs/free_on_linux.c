@@ -6,7 +6,7 @@
 /*   By: bahn <bahn@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 15:55:42 by bahn              #+#    #+#             */
-/*   Updated: 2021/10/18 15:56:24 by bahn             ###   ########.fr       */
+/*   Updated: 2021/10/18 16:13:52 by bahn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,5 @@ void	ft_free(t_fractol *fractol, int status)
 		}
 		mlx_destroy_display(fractol->mlx);
 	}
-	free(fractol->mlx);
 	exit(status);
 }
