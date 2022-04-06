@@ -1,4 +1,4 @@
-# Fract-ol [![bahn's 42Project Score](https://badge42.herokuapp.com/api/project/bahn/fract-ol)](https://github.com/JaeSeoKim/badge42)
+# Fract-ol [![bahn's 42 fract-ol Score](https://badge42.vercel.app/api/v2/cl1n6fb2j003009l0lfanbfyx/project/2329252)](https://github.com/JaeSeoKim/badge42)
 
 Discover 2D programming and the psychedelic universe of fractals in this project, using minilibX.
 
